@@ -29,7 +29,7 @@ import {
   WORK_ITEM_SIZE_OPTIONS,
   WORK_ITEM_STATUS_OPTIONS,
   WORK_ITEM_TYPE_OPTIONS,
-} from "./workItems.logic";
+} from "@t3tools/client-runtime/work-items";
 
 const NONE = "__none";
 

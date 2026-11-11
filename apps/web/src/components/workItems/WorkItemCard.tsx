@@ -10,7 +10,7 @@ import {
   WORK_ITEM_PRIORITY_OPTIONS,
   WORK_ITEM_SIZE_OPTIONS,
   WORK_ITEM_TYPE_OPTIONS,
-} from "./workItems.logic";
+} from "@t3tools/client-runtime/work-items";
 
 const TYPE_BADGE = {
   epic: "info",

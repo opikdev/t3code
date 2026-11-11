@@ -39,16 +39,16 @@ import { WorkItemSpaceDialog } from "./WorkItemSpaceDialog";
 import { WorkItemTableView } from "./WorkItemTableView";
 import { settledOrToast } from "./workItemFeedback";
 import {
-  blockedWorkItemIds,
   EMPTY_WORK_ITEM_FILTERS,
   filterWorkItems,
   optionLabel,
   WORK_ITEM_PRIORITY_OPTIONS,
   WORK_ITEM_TYPE_OPTIONS,
   type WorkItemFilterState,
-  type WorkItemPlacement,
   type WorkItemView,
-} from "./workItems.logic";
+} from "@t3tools/client-runtime/work-items";
+import { blockedWorkItemIds } from "@t3tools/contracts";
+import { type WorkItemPlacement } from "./workItems.logic";
 
 export interface WorkItemsSearch {
   readonly environment?: EnvironmentId;
