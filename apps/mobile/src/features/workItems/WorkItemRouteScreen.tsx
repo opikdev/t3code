@@ -19,7 +19,7 @@ import {
   type WorkItemUpdateInput,
 } from "@t3tools/contracts";
 import { useState } from "react";
-import { Pressable, TextInput as RNTextInput, View } from "react-native";
+import { Platform, Pressable, TextInput as RNTextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AppText as Text } from "../../components/ui/AppText";
@@ -225,6 +225,7 @@ export function WorkItemRouteScreen({
     >
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
+        automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
         className="flex-1"
         contentContainerClassName="gap-5 px-4 pt-3"
         contentContainerStyle={{ paddingBottom: Math.max(insets.bottom, 18) + 18 }}
