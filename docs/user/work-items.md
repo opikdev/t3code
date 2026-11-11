@@ -4,6 +4,9 @@ Plan and track work with your agents. Open **Work items** from the sidebar or th
 or press `mod+shift+u` on web and desktop when the terminal is not focused. Customize
 `workItems.open` in **Settings → Keybindings**.
 
+On mobile, choose **Work** in the workspace tabs. Mobile shows a list or a board paged by status,
+and lets you add items and edit their fields. Create and manage spaces on desktop or web.
+
 ## Spaces
 
 A space holds the work items for one or more repos on one environment. Choose **New space**, give
