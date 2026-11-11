@@ -93,6 +93,7 @@ const ACTION_ICONS: Record<string, AppSymbolName> = {
   appearance: "paintbrush",
   environments: "desktopcomputer",
   usage: "chart.bar.xaxis",
+  workItems: "rectangle.split.3x1",
   archive: "archivebox",
   files: "doc.text",
   terminal: "terminal",
@@ -331,6 +332,13 @@ export function CommandPalette(props: {
         title: "Scheduled tasks",
         searchTerms: ["schedule", "automations", "recurring"],
         run: () => openSettings(navigation, "SettingsScheduledTasks"),
+      },
+      {
+        key: "workItems",
+        kind: "action",
+        title: "Work items",
+        searchTerms: ["tasks", "board", "kanban", "issues", "backlog", "epics", "bugs"],
+        run: () => selectTab("workItems"),
       },
       {
         key: "usage",
