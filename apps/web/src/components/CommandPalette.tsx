@@ -57,6 +57,7 @@ import {
   ArrowLeftIcon,
   BugIcon,
   ChartNoAxesColumnIcon,
+  SquareKanbanIcon,
   CheckIcon,
   ChevronRightIcon,
   CornerLeftUpIcon,
@@ -1611,6 +1612,28 @@ function OpenCommandPaletteDialog(props: {
     shortcutCommand: "usage.open",
     run: async () => {
       await navigate({ to: "/usage" });
+    },
+  });
+
+  actionItems.push({
+    kind: "action",
+    value: "action:work-items",
+    searchTerms: [
+      "work",
+      "items",
+      "tasks",
+      "board",
+      "kanban",
+      "issues",
+      "epics",
+      "bugs",
+      "backlog",
+    ],
+    title: "Open work items",
+    icon: <SquareKanbanIcon className={ITEM_ICON_CLASS} />,
+    shortcutCommand: "workItems.open",
+    run: async () => {
+      await navigate({ to: "/work-items" });
     },
   });
 
