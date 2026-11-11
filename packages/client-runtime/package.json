@@ -423,6 +423,10 @@
       "types": "./src/pullRequestLinkInput.ts",
       "default": "./src/pullRequestLinkInput.ts"
     },
+    "./work-items": {
+      "types": "./src/workItemPresentation.ts",
+      "default": "./src/workItemPresentation.ts"
+    },
     "./change-request-links": {
       "types": "./src/changeRequestLinks.ts",
       "default": "./src/changeRequestLinks.ts"

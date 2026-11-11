@@ -23,12 +23,8 @@ import { cn } from "~/lib/utils";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { WorkItemCard } from "./WorkItemCard";
-import {
-  dropPlacement,
-  placementRank,
-  WORK_ITEM_STATUS_OPTIONS,
-  type WorkItemPlacement,
-} from "./workItems.logic";
+import { WORK_ITEM_STATUS_OPTIONS } from "@t3tools/client-runtime/work-items";
+import { dropPlacement, placementRank, type WorkItemPlacement } from "./workItems.logic";
 
 export interface WorkItemViewProps {
   readonly items: ReadonlyArray<WorkItem>;

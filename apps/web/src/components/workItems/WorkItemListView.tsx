@@ -11,7 +11,7 @@ import {
   WORK_ITEM_PRIORITY_OPTIONS,
   WORK_ITEM_STATUS_OPTIONS,
   workItemTree,
-} from "./workItems.logic";
+} from "@t3tools/client-runtime/work-items";
 
 export function WorkItemListView(props: WorkItemViewProps) {
   const columns = workItemColumns(props.items);

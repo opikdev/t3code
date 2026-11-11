@@ -11,7 +11,7 @@ import {
   WORK_ITEM_SIZE_OPTIONS,
   WORK_ITEM_STATUS_OPTIONS,
   type WorkItemSortKey,
-} from "./workItems.logic";
+} from "@t3tools/client-runtime/work-items";
 
 const COLUMNS: ReadonlyArray<{ readonly key: WorkItemSortKey; readonly label: string }> = [
   { key: "key", label: "Key" },

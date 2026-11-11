@@ -7,7 +7,7 @@ import {
 } from "@t3tools/contracts";
 import { describe, expect, it } from "vite-plus/test";
 
-import { dropPlacement, placementRank, workItemTree } from "./workItems.logic";
+import { dropPlacement, placementRank } from "./workItems.logic";
 
 const item = (
   number: number,
@@ -81,21 +81,4 @@ describe("board drops", () => {
     expect(ranks[1]).toBeLessThan(1024);
     expect(ranks[2]).toBeGreaterThan(3072);
   });
-});
-
-it("nests children under their parent when both are in the group", () => {
-  const rows = workItemTree([
-    item(1, "todo", 1),
-    item(2, "todo", 2, 1),
-    item(3, "todo", 3),
-    item(4, "todo", 0, 2),
-    item(5, "todo", 4, 9),
-  ]);
-  expect(rows.map((row) => `${row.item.number}:${row.depth}`)).toEqual([
-    "1:0",
-    "2:1",
-    "4:2",
-    "3:0",
-    "5:0",
-  ]);
 });
