@@ -74,6 +74,10 @@ export class WorkItemService extends Context.Service<
     readonly spacesForProject: (
       projectId: ProjectId,
     ) => Effect.Effect<ReadonlyArray<WorkItemSpace>, WorkItemError>;
+    /** A space id or key, such as SHOP. */
+    readonly resolveSpace: (ref: string) => Effect.Effect<WorkItemSpace, WorkItemError>;
+    /** An item id or key, such as SHOP-12. Deleted items do not resolve. */
+    readonly resolveItem: (ref: string) => Effect.Effect<WorkItem, WorkItemError>;
     readonly read: (id: WorkItemId) => Effect.Effect<WorkItemReadResult, WorkItemError>;
     readonly listDeleted: (
       spaceId: WorkItemSpaceId,
@@ -653,6 +657,39 @@ const make = Effect.gen(function* () {
       }),
     );
 
+  const resolveSpace: WorkItemService["Service"]["resolveSpace"] = Effect.fn(
+    "WorkItemService.resolveSpace",
+  )(function* (ref) {
+    const rows = yield* query(
+      sql<{ readonly space_id: string }>`
+        SELECT space_id FROM work_item_spaces WHERE space_id = ${ref} OR key = ${ref.toUpperCase()}
+      `,
+      "Could not read the space.",
+    );
+    const [row] = rows;
+    if (row === undefined) return yield* fail(`No space matches ${ref}.`);
+    return yield* requireSpace(WorkItemSpaceId.make(row.space_id));
+  });
+
+  const resolveItem: WorkItemService["Service"]["resolveItem"] = Effect.fn(
+    "WorkItemService.resolveItem",
+  )(function* (ref) {
+    const key = /^([A-Za-z][A-Za-z0-9]{1,5})-(\d+)$/.exec(ref.trim());
+    if (key === null) return (yield* requireItem(WorkItemId.make(ref))).item;
+    const rows = yield* query(
+      sql<{ readonly work_item_id: string }>`
+        SELECT work_items.work_item_id FROM work_items
+        JOIN work_item_spaces ON work_item_spaces.space_id = work_items.space_id
+        WHERE work_item_spaces.key = ${key[1]!.toUpperCase()} AND work_items.number = ${Number(key[2])}
+          AND work_items.deleted_at IS NULL
+      `,
+      "Could not read the work item.",
+    );
+    const [row] = rows;
+    if (row === undefined) return yield* fail(`Work item ${ref} does not exist.`);
+    return (yield* requireItem(WorkItemId.make(row.work_item_id))).item;
+  });
+
   const spacesForProject: WorkItemService["Service"]["spacesForProject"] = Effect.fn(
     "WorkItemService.spacesForProject",
   )(function* (projectId) {
@@ -1165,6 +1202,8 @@ const make = Effect.gen(function* () {
     snapshot,
     subscribeSpace,
     spacesForProject,
+    resolveSpace,
+    resolveItem,
     read,
     listDeleted,
     createSpace,

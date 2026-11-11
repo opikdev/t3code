@@ -90,6 +90,18 @@ it.effect(
       const second = yield* task("Screen");
       assert.deepStrictEqual([epic.item.number, first.number, second.number], [1, 2, 3]);
       assert.strictEqual(first.parentId, epic.item.id);
+      assert.deepStrictEqual(
+        [
+          (yield* service.resolveItem("shop-2")).id,
+          (yield* service.resolveItem(second.id)).id,
+          (yield* service.resolveSpace("shop")).id,
+        ],
+        [first.id, second.id, space.id],
+      );
+      assert.include(
+        failureMessage(yield* service.resolveItem("SHOP-99").pipe(Effect.exit)),
+        "does not exist",
+      );
 
       const noRepo = yield* service
         .create({ spaceId: space.id, type: "bug", title: "Crash" }, user)
