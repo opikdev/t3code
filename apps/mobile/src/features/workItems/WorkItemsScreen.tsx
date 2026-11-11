@@ -19,6 +19,7 @@ import { EmptyState } from "../../components/ui/EmptyState";
 import { ListSection } from "../../components/ui/ListSection";
 import { ScreenScrollView as ScrollView } from "../../components/ui/ScreenScrollView";
 import { SegmentedControl } from "../../components/ui/SegmentedControl";
+import { useBarOverlap } from "../../components/ui/useBarInset";
 import { useProjects } from "../../state/entities";
 import { useEnvironments } from "../../state/environments";
 import { useEnvironmentQuery } from "../../state/query";
@@ -36,6 +37,7 @@ const VIEW_OPTIONS = [
 export function WorkItemsScreen() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+  const barOverlap = useBarOverlap();
   const { environments } = useEnvironments();
   const connected = environments.filter(
     (entry) => entry.connection.phase === "connected" && entry.serverConfig !== null,
@@ -227,7 +229,7 @@ export function WorkItemsScreen() {
           })}
         </ScrollView>
       ) : (
-        <View className="flex-1 gap-3 pt-3">
+        <View className="flex-1 gap-3" style={{ paddingTop: barOverlap + 12 }}>
           <View className="px-4">
             <SegmentedControl
               variant="standalone"
