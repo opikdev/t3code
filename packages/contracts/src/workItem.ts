@@ -47,7 +47,8 @@ export type WorkItemLinkKind = typeof WorkItemLinkKind.Type;
 
 export const WorkItemActor = Schema.Union([
   Schema.Struct({ kind: Schema.Literal("user") }),
-  Schema.Struct({ kind: Schema.Literal("agent"), threadId: ThreadId }),
+  // `threadId` is null for an MCP client that is not running inside a T3 thread.
+  Schema.Struct({ kind: Schema.Literal("agent"), threadId: Schema.NullOr(ThreadId) }),
 ]);
 export type WorkItemActor = typeof WorkItemActor.Type;
 

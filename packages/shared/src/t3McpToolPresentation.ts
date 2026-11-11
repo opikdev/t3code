@@ -44,6 +44,10 @@ export type T3McpToolSummaryAction =
   | "worktree-handoff"
   | "worktree-list"
   | "worktree-status"
+  | "work-item-list"
+  | "work-item-read"
+  | "work-item-save"
+  | "work-item-link"
   | "project-list"
   | "project-read"
   | "project-create"
@@ -332,6 +336,10 @@ const T3_MCP_TOOLS: Readonly<Record<string, T3McpToolDefinition>> = {
   t3_thread_organize: tool(["Organize", "Organizing", "Organized", "a thread"], "thread-organize"),
   t3_thread_update: tool(["Update", "Updating", "Updated", "T3 thread metadata"], "thread-update"),
   t3_worktree_list: tool(["List", "Listing", "Listed", "workspace branches"], "worktree-list"),
+  work_item_list: tool(["List", "Listing", "Listed", "work items"], "work-item-list"),
+  work_item_read: tool(["Read", "Reading", "Read", "a work item"], "work-item-read"),
+  work_item_save: tool(["Save", "Saving", "Saved", "a work item"], "work-item-save"),
+  work_item_link: tool(["Link", "Linking", "Linked", "work items"], "work-item-link"),
   t3_preview_list: tool(["List", "Listing", "Listed", "preview tabs"], "browser", "browser"),
   t3_preview_close: tool(["Close", "Closing", "Closed", "a preview tab"], "browser", "browser"),
   t3_environment_read: tool(

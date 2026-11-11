@@ -327,6 +327,18 @@ export function summarizeT3ToolCalls(
     case "worktree-status":
       label = phrase("Checked", "check", `worktree status ${times}`);
       break;
+    case "work-item-list":
+      label = phrase("Listed", "list", `work items ${times}`);
+      break;
+    case "work-item-read":
+      label = phrase("Read", "read", quantity(countEntities(entityIds("item")), "work item"));
+      break;
+    case "work-item-save":
+      label = phrase("Saved", "save", quantity(selected.length, "work item"));
+      break;
+    case "work-item-link":
+      label = phrase("Linked", "link", `work items ${times}`);
+      break;
     case "project-list":
       label = phrase("Listed", "list", `projects ${times}`);
       break;
