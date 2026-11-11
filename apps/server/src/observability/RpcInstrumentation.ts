@@ -1,4 +1,9 @@
-import { ORCHESTRATION_V2_WS_METHODS, WS_METHODS, type WsRpcGroup } from "@t3tools/contracts";
+import {
+  ORCHESTRATION_V2_WS_METHODS,
+  WORK_ITEM_WS_METHODS,
+  WS_METHODS,
+  type WsRpcGroup,
+} from "@t3tools/contracts";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 import * as References from "effect/References";
@@ -95,6 +100,19 @@ const RPC_AGGREGATES = {
   [WS_METHODS.serverSignalProcess]: "server",
   [WS_METHODS.serverReportClientActivity]: "server",
   [WS_METHODS.scheduledTasksSubscribe]: "scheduledTasks",
+  [WORK_ITEM_WS_METHODS.subscribeSpaces]: "workItems",
+  [WORK_ITEM_WS_METHODS.subscribeSpace]: "workItems",
+  [WORK_ITEM_WS_METHODS.read]: "workItems",
+  [WORK_ITEM_WS_METHODS.listDeleted]: "workItems",
+  [WORK_ITEM_WS_METHODS.createSpace]: "workItems",
+  [WORK_ITEM_WS_METHODS.updateSpace]: "workItems",
+  [WORK_ITEM_WS_METHODS.setSpaceArchived]: "workItems",
+  [WORK_ITEM_WS_METHODS.create]: "workItems",
+  [WORK_ITEM_WS_METHODS.update]: "workItems",
+  [WORK_ITEM_WS_METHODS.move]: "workItems",
+  [WORK_ITEM_WS_METHODS.setLink]: "workItems",
+  [WORK_ITEM_WS_METHODS.comment]: "workItems",
+  [WORK_ITEM_WS_METHODS.setDeleted]: "workItems",
   [WS_METHODS.scheduledTasksUpsert]: "scheduledTasks",
   [WS_METHODS.scheduledTasksSetEnabled]: "scheduledTasks",
   [WS_METHODS.scheduledTasksDelete]: "scheduledTasks",

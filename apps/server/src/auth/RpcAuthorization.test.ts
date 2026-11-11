@@ -14,6 +14,7 @@ import {
   AuthSourceControlWriteScope,
   AuthTerminalReadScope,
   AuthTerminalOperateScope,
+  WORK_ITEM_WS_METHODS,
   WS_METHODS,
   WsRpcGroup,
 } from "@t3tools/contracts";
@@ -71,6 +72,20 @@ describe("RPC authorization scopes", () => {
   it("lets thread readers observe and refresh checkout branches", () => {
     for (const method of [WS_METHODS.subscribeVcsBranch, WS_METHODS.vcsRefreshBranch]) {
       expect(requiredScopeForRpcMethod(method)).toBe(AuthOrchestrationReadScope);
+    }
+  });
+
+  it("lets thread readers see work items while every work item change needs operate scope", () => {
+    const reads = new Set<string>([
+      WORK_ITEM_WS_METHODS.subscribeSpaces,
+      WORK_ITEM_WS_METHODS.subscribeSpace,
+      WORK_ITEM_WS_METHODS.read,
+      WORK_ITEM_WS_METHODS.listDeleted,
+    ]);
+    for (const method of Object.values(WORK_ITEM_WS_METHODS)) {
+      expect(requiredScopeForRpcMethod(method)).toBe(
+        reads.has(method) ? AuthOrchestrationReadScope : AuthOrchestrationOperateScope,
+      );
     }
   });
 

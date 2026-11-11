@@ -101,6 +101,7 @@ import {
   type TerminalMetadataStreamEvent,
   type PullRequestRef,
   WS_METHODS,
+  WORK_ITEM_WS_METHODS,
   WsRpcGroup,
 } from "@t3tools/contracts";
 import {
@@ -126,6 +127,7 @@ import * as ThreadMessageIntake from "./orchestration-v2/ThreadMessageIntake.ts"
 import * as DocumentText from "./provider/DocumentText.ts";
 import * as IdAllocator from "@t3tools/provider-core/server/IdAllocator";
 import * as ScheduledTasks from "./scheduledTasks/ScheduledTaskService.ts";
+import * as WorkItems from "./workItems/WorkItemService.ts";
 import * as SecretRequests from "./secrets/SecretRequests.ts";
 import * as GuestShareService from "./guest/GuestShareService.ts";
 import {
@@ -1447,6 +1449,7 @@ export const layerWsRpc = (
       const commandOutputHub = yield* CommandOutputHub.CommandOutputHub;
       const providerSessionManager = yield* ProviderSessionManager.ProviderSessionManagerV2;
       const scheduledTasks = yield* ScheduledTasks.ScheduledTaskService;
+      const workItems = yield* WorkItems.WorkItemService;
       const secretRequests = yield* SecretRequests.SecretRequests;
       const guestShares = yield* GuestShareService.GuestShareService;
       const pullRequests = yield* PullRequestService.PullRequestService;
@@ -2369,6 +2372,20 @@ export const layerWsRpc = (
           Effect.annotateCurrentSpan({ "scheduled_task.id": input.id }).pipe(
             Effect.andThen(scheduledTasks.rotateWebhookToken(input)),
           ),
+        [WORK_ITEM_WS_METHODS.subscribeSpaces]: (_input) => workItems.subscribeSpaces(),
+        [WORK_ITEM_WS_METHODS.subscribeSpace]: (input) => workItems.subscribeSpace(input.spaceId),
+        [WORK_ITEM_WS_METHODS.read]: (input) => workItems.read(input.id),
+        [WORK_ITEM_WS_METHODS.listDeleted]: (input) => workItems.listDeleted(input.spaceId),
+        [WORK_ITEM_WS_METHODS.createSpace]: (input) => workItems.createSpace(input),
+        [WORK_ITEM_WS_METHODS.updateSpace]: (input) => workItems.updateSpace(input),
+        [WORK_ITEM_WS_METHODS.setSpaceArchived]: (input) => workItems.setSpaceArchived(input),
+        [WORK_ITEM_WS_METHODS.create]: (input) => workItems.create(input, WorkItems.USER_ACTOR),
+        [WORK_ITEM_WS_METHODS.update]: (input) => workItems.update(input, WorkItems.USER_ACTOR),
+        [WORK_ITEM_WS_METHODS.move]: (input) => workItems.move(input, WorkItems.USER_ACTOR),
+        [WORK_ITEM_WS_METHODS.setLink]: (input) => workItems.setLink(input, WorkItems.USER_ACTOR),
+        [WORK_ITEM_WS_METHODS.comment]: (input) => workItems.comment(input, WorkItems.USER_ACTOR),
+        [WORK_ITEM_WS_METHODS.setDeleted]: (input) =>
+          workItems.setDeleted(input, WorkItems.USER_ACTOR),
         [WS_METHODS.guestShareCreate]: (input) =>
           Effect.annotateCurrentSpan({ "orchestration_v2.thread_id": input.threadId }).pipe(
             Effect.andThen(guestShares.create(input)),

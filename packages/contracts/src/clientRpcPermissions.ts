@@ -14,6 +14,7 @@ import {
 } from "./auth.ts";
 import { ORCHESTRATION_V2_WS_METHODS } from "./orchestrationV2.ts";
 import { WS_METHODS } from "./rpc.ts";
+import { WORK_ITEM_WS_METHODS } from "./workItemRpc.ts";
 
 /** Incremental client enforcement; the server still authorizes every request. */
 export const CLIENT_GUARDED_RPC_SCOPES = {
@@ -68,6 +69,15 @@ export const CLIENT_GUARDED_RPC_SCOPES = {
   [WS_METHODS.scheduledTasksDelete]: AuthOrchestrationOperateScope,
   [WS_METHODS.scheduledTasksRunNow]: AuthOrchestrationOperateScope,
   [WS_METHODS.scheduledTasksRotateWebhookToken]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.createSpace]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.updateSpace]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.setSpaceArchived]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.create]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.update]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.move]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.setLink]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.comment]: AuthOrchestrationOperateScope,
+  [WORK_ITEM_WS_METHODS.setDeleted]: AuthOrchestrationOperateScope,
   [ORCHESTRATION_V2_WS_METHODS.stopWorkflow]: AuthOrchestrationOperateScope,
   // Force stop kills agent processes, as Stop on a terminal does.
   [ORCHESTRATION_V2_WS_METHODS.forceStopThread]: AuthOrchestrationOperateScope,

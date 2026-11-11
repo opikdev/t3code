@@ -28,6 +28,7 @@ import {
   EnvironmentAuthorizationError,
   RpcScopeAuthorization,
   WS_METHODS,
+  WORK_ITEM_WS_METHODS,
   WsRpcGroup,
 } from "@t3tools/contracts";
 import * as Effect from "effect/Effect";
@@ -116,6 +117,10 @@ export const RPC_REQUIRED_SCOPES = {
   [WS_METHODS.serverSignalProcess]: AuthEnvironmentMaintainScope,
   [WS_METHODS.serverReportClientActivity]: AuthOrchestrationReadScope,
   [WS_METHODS.scheduledTasksSubscribe]: AuthOrchestrationReadScope,
+  [WORK_ITEM_WS_METHODS.subscribeSpaces]: AuthOrchestrationReadScope,
+  [WORK_ITEM_WS_METHODS.subscribeSpace]: AuthOrchestrationReadScope,
+  [WORK_ITEM_WS_METHODS.read]: AuthOrchestrationReadScope,
+  [WORK_ITEM_WS_METHODS.listDeleted]: AuthOrchestrationReadScope,
   [WS_METHODS.secretsAnswerRequest]: AuthOrchestrationOperateScope,
   // Delivery logs hold request bodies, so they need the same scope as the URL.
   [WS_METHODS.scheduledTasksListWebhookDeliveries]: AuthOrchestrationOperateScope,
